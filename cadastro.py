@@ -12,15 +12,23 @@ def printMenu():
     print("5 - Sair")
     return int(input("Escolha uma opcao: "))
 
-nome1 = ""
-idade1 = 0
-email1 = ""
-nome2 = ""
-idade2 = 0
-email2 = ""
-nome3 = ""
-idade3 = 0
-email3 = ""
+def cadastrarPessoa(nomes, idades, emails):
+    nome = input("Informe o nome: ")
+    nomes.append(nome)
+    idade = int(input("Informe a idade: "))
+    idades.append(idade)
+    email = input("Informe o e-mail: ")
+    emails.append(email)
+    if idade >= 18:
+        print("Situação: Maior de idade")
+    else:
+        print("Situação: Menor de idade")
+
+ 
+
+nomes = []
+idades = []
+emails = []
 
 qtd = 0
 op = 0
@@ -28,121 +36,54 @@ op = 0
 while op != 5:
     op = printMenu() 
     if op == 1:
-        if qtd == 3:
-            print("Cadastro cheio")
-        else:
-            n = input("Nome: ")
-            i = int(input("Idade: "))
-            e = input("E-mail: ")
-            if qtd == 0:
-                nome1 = n
-                idade1 = i
-                email1 = e
-            elif qtd == 1:
-                nome2 = n
-                idade2 = i
-                email2 = e
-            else:
-                nome3 = n
-                idade3 = i
-                email3 = e
-            qtd = qtd + 1
-            print("Pessoa cadastrada!")
-            print("Nome: " + n)
-            print("Idade: " + str(i))
-            print("E-mail: " + e)
-            if i >= 18:
-                print("Situacao: Maior de idade")
-            else:
-                print("Situacao: Menor de idade")
+        cadastrarPessoa(nomes, idades, emails)
     elif op == 2:
-        b = input("Nome para consultar: ")
-        achou = 0
-        if qtd >= 1 and b == nome1:
-            achou = 1
-            print("Nome: " + nome1)
-            print("Idade: " + str(idade1))
-            print("E-mail: " + email1)
-            if idade1 >= 18:
-                print("Situacao: Maior de idade")
-            else:
-                print("Situacao: Menor de idade")
-        if qtd >= 2 and b == nome2:
-            achou = 1
-            print("Nome: " + nome2)
-            print("Idade: " + str(idade2))
-            print("E-mail: " + email2)
-        if qtd >= 3 and b == nome3:
-            achou = 1
-            print("Nome: " + nome3)
-            print("Idade: " + str(idade3))
-            print("E-mail: " + email3)
+        busca = input("Nome para consultar: ")
+        pos = 0;
+        achou = 0;
+        while pos < len(nomes) and achou == 0:
+            if(busca==nomes[pos]):
+                print("Nome: " + nomes[pos])
+                print("Idade: " + str(idades[pos]))
+                print("E-mail: " + emails[pos])
+                print("-------------------------")
+                achou = 1
+            pos = pos + 1
         if achou == 0:
             print("Nao encontrado")
     elif op == 3:
         b = input("Nome para alterar: ")
-        achou = 0
-        if b == nome1:
-            achou = 1
-            print("Dados atuais:")
-            print("Nome: " + nome1)
-            print("Idade: " + str(idade1))
-            print("E-mail: " + email1)
-            n = input("Novo nome: ")
-            i = int(input("Nova idade: "))
-            e = input("Novo e-mail: ")
-            nome1 = n
-            idade1 = i
-            if e != "":
-                email1 = e
-            print("Alterado!")
-        elif b == nome2:
-            achou = 1
-            print("Dados atuais:")
-            print("Nome: " + nome2)
-            print("Idade: " + str(idade2))
-            print("E-mail: " + email2)
-            n = input("Novo nome: ")
-            i = int(input("Nova idade: "))
-            e = input("Novo e-mail: ")
-            nome2 = n
-            idade2 = i
-            email2 = e
-            print("Alterado!")
-        elif b == nome3:
-            achou = 1
-            print("Dados atuais:")
-            print("Nome: " + nome3)
-            print("Idade: " + str(idade3))
-            print("E-mail: " + email3)
-            n = input("Novo nome: ")
-            i = int(input("Nova idade: "))
-            e = input("Novo e-mail: ")
-            nome3 = n
-            idade3 = i
-            email3 = e
-            print("Alterado!")
+        pos = 0;
+        achou = 0;
+        while pos < len(nomes) and achou == 0:
+            if(busca==nomes[pos]):
+                print("Nome: " + nomes[pos])
+                print("Idade: " + str(idades[pos]))
+                print("E-mail: " + emails[pos])
+                print("-------------------------")
+                nome = input("Novo nome: ")
+                idade = int(input("Nova idade: "))
+                email = input("Novo e-mail: ")
+                nomes[pos] = nome
+                idades[pos] = idade
+                if email != "":
+                    emails[pos] = email
+                achou = 1
+            pos = pos + 1
         if achou == 0:
             print("Nao encontrado")
     elif op == 4:
-        if qtd == 0:
-            print("Nenhuma pessoa cadastrada")
-        if qtd >= 1:
-            print("Nome: " + nome1)
-            print("Idade: " + str(idade1))
-            print("E-mail: " + email1)
-            print("-------------------------")
-        if qtd >= 2:
-            print("Nome: " + nome2)
-            print("Idade: " + str(idade2))
-            print("E-mail: " + email2)
-            print("-------------------------")
-        if qtd >= 3:
-            print("Nome: " + nome3)
-            print("Idade: " + str(idade3))
-            print("E-mail: " + email3)
-            print("-------------------------")
-        print("Total: " + str(qtd))
+        if(len(nomes)==0):
+            print("Nenhum cadastro")
+        else:
+            pos = 0;
+            while pos < len(nomes):
+                print("Nome: " + nomes[pos])
+                print("Idade: " + str(idades[pos]))
+                print("E-mail: " + emails[pos])
+                print("-------------------------")
+                pos = pos + 1
+            print("Total: " + str(len(nomes)))
     elif op == 5:
         print("Saindo...")
 
