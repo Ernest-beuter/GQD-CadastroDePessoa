@@ -52,7 +52,7 @@ while op != 5:
         if achou == 0:
             print("Nao encontrado")
     elif op == 3:
-        b = input("Nome para alterar: ")
+        busca = input("Nome para alterar: ")
         pos = 0;
         achou = 0;
         while pos < len(nomes) and achou == 0:
