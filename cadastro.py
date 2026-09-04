@@ -31,6 +31,7 @@ def cadastrarPessoa(nomes, idades, emails):
         print("Situação: Maior de idade")
     else:
         print("Situação: Menor de idade")
+
 def buscarPessoa(busca, nomes):
     posicao = 0
     while posicao < len(nomes):
@@ -43,10 +44,24 @@ def buscarPessoa(busca, nomes):
     
 def consultarPessoa(nomes, idades, emails):
     busca = input("Nome para consultar: ")
-    posicao = buscarPessoa(busca, nomes);
+    posicao = buscarPessoa(busca, nomes)
     if(posicao!=-1):
         exibirPessoa(nomes[posicao], idades[posicao], emails[posicao])
 
+def alterarPessoa(nomes, idades, emails):
+    busca = input("Nome para alterar: ")
+    posicao = buscarPessoa(busca, nomes)
+    if(posicao!=-1):
+        exibirPessoa(nomes[posicao], idades[posicao], emails[posicao])
+        nome = input("Novo nome: ")
+        idade = int(input("Nova idade: "))
+        email = input("Novo e-mail: ")
+        if(nome!=""):
+            nomes[posicao] = nome
+        if(idade>0):
+            idades[posicao] = idade
+        if(email!=""):
+            emails[posicao] = email
 
 nomes = []
 idades = []
@@ -62,26 +77,7 @@ while op != 5:
     elif op == 2:
         consultarPessoa(nomes, idades, emails)
     elif op == 3:
-        busca = input("Nome para alterar: ")
-        pos = 0;
-        achou = 0;
-        while pos < len(nomes) and achou == 0:
-            if(busca==nomes[pos]):
-                print("Nome: " + nomes[pos])
-                print("Idade: " + str(idades[pos]))
-                print("E-mail: " + emails[pos])
-                print("-------------------------")
-                nome = input("Novo nome: ")
-                idade = int(input("Nova idade: "))
-                email = input("Novo e-mail: ")
-                nomes[pos] = nome
-                idades[pos] = idade
-                if email != "":
-                    emails[pos] = email
-                achou = 1
-            pos = pos + 1
-        if achou == 0:
-            print("Nao encontrado")
+        alterarPessoa(nomes, idades, emails)
     elif op == 4:
         if(len(nomes)==0):
             print("Nenhum cadastro")
