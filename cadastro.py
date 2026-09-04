@@ -12,6 +12,14 @@ def printMenu():
     print("5 - Sair")
     return int(input("Escolha uma opcao: "))
 
+def exibirPessoa(nome, idade, email):
+    print("Nome: " + nome)
+    print("Idade: " + str(idade))
+    print("E-mail: " + email)
+    print("-------------------------")
+ 
+
+
 def cadastrarPessoa(nomes, idades, emails):
     nome = input("Informe o nome: ")
     nomes.append(nome)
@@ -23,8 +31,22 @@ def cadastrarPessoa(nomes, idades, emails):
         print("Situação: Maior de idade")
     else:
         print("Situação: Menor de idade")
+def buscarPessoa(busca, nomes):
+    posicao = 0
+    while posicao < len(nomes):
+        if(busca==nomes[posicao]):
+            return posicao
+        posicao = posicao + 1
+    print("Não encontrado")
+    return -1
 
- 
+    
+def consultarPessoa(nomes, idades, emails):
+    busca = input("Nome para consultar: ")
+    posicao = buscarPessoa(busca, nomes);
+    if(posicao!=-1):
+        exibirPessoa(nomes[posicao], idades[posicao], emails[posicao])
+
 
 nomes = []
 idades = []
@@ -38,19 +60,7 @@ while op != 5:
     if op == 1:
         cadastrarPessoa(nomes, idades, emails)
     elif op == 2:
-        busca = input("Nome para consultar: ")
-        pos = 0;
-        achou = 0;
-        while pos < len(nomes) and achou == 0:
-            if(busca==nomes[pos]):
-                print("Nome: " + nomes[pos])
-                print("Idade: " + str(idades[pos]))
-                print("E-mail: " + emails[pos])
-                print("-------------------------")
-                achou = 1
-            pos = pos + 1
-        if achou == 0:
-            print("Nao encontrado")
+        consultarPessoa(nomes, idades, emails)
     elif op == 3:
         busca = input("Nome para alterar: ")
         pos = 0;
