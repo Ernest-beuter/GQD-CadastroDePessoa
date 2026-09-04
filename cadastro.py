@@ -41,7 +41,6 @@ def buscarPessoa(busca, nomes):
     print("Não encontrado")
     return -1
 
-    
 def consultarPessoa(nomes, idades, emails):
     busca = input("Nome para consultar: ")
     posicao = buscarPessoa(busca, nomes)
@@ -63,6 +62,17 @@ def alterarPessoa(nomes, idades, emails):
         if(email!=""):
             emails[posicao] = email
 
+def listarPessoas(nomes, idades, emails):
+    if(len(nomes)==0):
+        print("Nenhum cadastro")
+    else:
+        posicao = 0;
+        while posicao < len(nomes):
+            exibirPessoa(nomes[posicao], idades[posicao], emails[posicao])
+            posicao = posicao + 1
+        print("Total: " + str(len(nomes)))
+
+
 nomes = []
 idades = []
 emails = []
@@ -79,17 +89,7 @@ while op != 5:
     elif op == 3:
         alterarPessoa(nomes, idades, emails)
     elif op == 4:
-        if(len(nomes)==0):
-            print("Nenhum cadastro")
-        else:
-            pos = 0;
-            while pos < len(nomes):
-                print("Nome: " + nomes[pos])
-                print("Idade: " + str(idades[pos]))
-                print("E-mail: " + emails[pos])
-                print("-------------------------")
-                pos = pos + 1
-            print("Total: " + str(len(nomes)))
+        listarPessoas(nomes, idades, emails)
     elif op == 5:
         print("Saindo...")
 
