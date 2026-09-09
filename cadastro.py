@@ -73,6 +73,46 @@ def listarPessoas(nomes, idades, emails):
             posicao = posicao + 1
         print("Total: " + str(len(nomes)))
 
+def analisarIdade(idade):
+    if idade < 12:
+        print("Faixa etária: Criança")
+    elif idade < 18:
+        print("Faixa etária: Adolescente")
+    elif idade < 30:
+        print("Faixa etária: Adulto jovem")
+    elif idade < 60:
+        print("Faixa etária: Adulto")
+    else:
+        print("Faixa etária: Idoso")
+
+def analisarEmail(email):
+    if email == "":
+            print("Cadastro incompleto: sem o e-mail")
+    else:
+        if "@" not in email:
+            print("E-mail invalido")
+        else:
+            if email.endswith("@gmail.com"):
+                print("Provedor: Gmail")
+            elif email.endswith("@outlook.com"):
+                print("Provedor: Outlook")
+            elif email.endswith("@hotmail.com"):
+                print("Provedor: Hotmail")
+            elif email.endswith("@utfpr.edu.br"):
+                print("Provedor: UTFPR")
+            else:
+                print("Provedor: Outro")
+
+def analisarIdadeEEmail(idade, email):
+    if idade >= 18 and email != "":
+        print("Cadastro apto para contato")
+    elif idade >= 18 and email == "":
+        print("Maior de idade sem contato")
+    elif idade < 18 and email != "":
+        print("Menor de idade com contato")
+    else:
+        print("Menor de idade sem contato")
+
 def analisarPessoa(nomes, idades, emails):
     busca = input("Nome para analisar: ")
     posicao = buscarPessoa(busca, nomes)
@@ -83,41 +123,10 @@ def analisarPessoa(nomes, idades, emails):
         idade = idades[posicao]
         email = emails[posicao]
 
-        if idade < 12:
-            print("Faixa etária: Criança")
-        elif idade < 18:
-            print("Faixa etária: Adolescente")
-        elif idade < 30:
-            print("Faixa etária: Adulto jovem")
-        elif idade < 60:
-            print("Faixa etária: Adulto")
-        else:
-            print("Faixa etária: Idoso")
+        analisarIdade(idade)
+        analisarEmail(email)
+        analisarIdadeEEmail(idade, email)
 
-        if email == "":
-            print("Cadastro incompleto: sem o e-mail")
-        else:
-            if "@" not in email:
-                print("E-mail invalido")
-            else:
-                if email.endswith("@gmail.com"):
-                    print("Provedor: Gmail")
-                elif email.endswith("@outlook.com"):
-                    print("Provedor: Outlook")
-                elif email.endswith("@hotmail.com"):
-                    print("Provedor: Hotmail")
-                elif email.endswith("@utfpr.edu.br"):
-                    print("Provedor: UTFPR")
-                else:
-                    print("Provedor: Outro")
-        if idade >= 18 and email != "":
-            print("Cadastro apto para contato")
-        elif idade >= 18 and email == "":
-            print("Maior de idade sem contato")
-        elif idade < 18 and email != "":
-            print("Menor de idade com contato")
-        else:
-            print("Menor de idade sem contato")
 
 
 
