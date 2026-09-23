@@ -1,7 +1,6 @@
 """Sistema de Cadastro de Pessoas."""
 
 def printMenu():
-    """Apresentação do menu principal"""
     print("=========================")
     print(" CADASTRO DE PESSOAS")
     print("=========================")
@@ -14,7 +13,6 @@ def printMenu():
     return int(input("Escolha uma opcao: "))
 
 def exibirPessoa(nome, idade, email):
-    """Apresenta todas as informações de uma pessoa"""
     print("Nome: " + nome)
     print("Idade: " + str(idade))
     print("E-mail: " + email)
@@ -104,7 +102,6 @@ def analisarEmail(email):
     return 1
 
 def analisarProvedorEmail(email):
-    """Apresenta o provedor do email informado"""
     if email.endswith("@gmail.com"):
         print("Provedor: Gmail")
     elif email.endswith("@outlook.com"):
@@ -118,7 +115,6 @@ def analisarProvedorEmail(email):
 
 
 def analisarIdadeEEmail(idade, email):
-    """Apresenta se a pessoa com tal email e idade pode ser contactado"""
     if idade >= 18 and email != "":
         print("Cadastro apto para contato")
     elif idade >= 18 and email == "":
@@ -129,8 +125,7 @@ def analisarIdadeEEmail(idade, email):
         print("Menor de idade sem contato")
 
 def analisarPessoa(nomes, idades, emails):
-    """Busca uma pessoa e valida seu cadastro pela sua faixa etária, 
-        validade do e-mail e se é possível contactar"""
+    """Busca uma pessoa e valida seu cadastro pela sua faixa etária, validade do e-mail e se é possível contactar"""
     busca = input("Nome para analisar: ")
     posicao = buscarPessoa(busca, nomes)
 
