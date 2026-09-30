@@ -1,5 +1,7 @@
 """Sistema de Cadastro de Pessoas."""
 
+from cadastro import CadastroPessoa
+
 def printMenu():
     print("=========================")
     print(" CADASTRO DE PESSOAS")
@@ -12,70 +14,64 @@ def printMenu():
     print("6 - Sair")
     return int(input("Escolha uma opcao: "))
 
-def exibirPessoa(nome, idade, email):
-    print("Nome: " + nome)
-    print("Idade: " + str(idade))
-    print("E-mail: " + email)
+def exibirPessoa(pessoa):
+    print("Nome: " + pessoa.getNome())
+    print("Idade: " + str(pessoa.getIdade()))
+    print("E-mail: " + pessoa.getEmail())
     print("-------------------------")
+    if pessoa.getIdade() >= 18:
+        print("Situação: Maior de idade")
+    else:
+        print("Situação: Menor de idade")
 
 
 
-def cadastrarPessoa(nomes, idades, emails):
+def cadastrarPessoa(cadastro):
     """Cadastra o Nome, Idade e E-mail de uma pessoa e informa se é de maior/menor"""
     nome = input("Informe o nome: ")
-    nomes.append(nome)
     idade = int(input("Informe a idade: "))
-    idades.append(idade)
     email = input("Informe o e-mail: ")
-    emails.append(email)
+
+    cadastro.cadastrar(nome, idade, email)
+
     if idade >= 18:
         print("Situação: Maior de idade")
     else:
         print("Situação: Menor de idade")
 
-def buscarPessoa(busca, nomes):
-    """Encontra a posição no array do nome informado em busca"""
-    posicao = 0
-    while posicao < len(nomes):
-        if busca==nomes[posicao]:
-            return posicao
-        posicao = posicao + 1
-    print("Não encontrado")
-    return -1
-
-def consultarPessoa(nomes, idades, emails):
+def consultarPessoa(cadastro):
     """Pesquisa uma pessoa nos cadastro e a apresenta se encontrado"""
     busca = input("Nome para consultar: ")
-    posicao = buscarPessoa(busca, nomes)
-    if posicao!=-1:
-        exibirPessoa(nomes[posicao], idades[posicao], emails[posicao])
+    pessoa = cadastro.buscarPorNome(busca)
+    if pessoa is None:
+        print("Não encontrado")
+    else:
+        exibirPessoa(pessoa)
 
-def alterarPessoa(nomes, idades, emails):
+def alterarPessoa(cadastro):
     """Altera as informações de uma pessoa"""
     busca = input("Nome para alterar: ")
-    posicao = buscarPessoa(busca, nomes)
-    if posicao!=-1:
-        exibirPessoa(nomes[posicao], idades[posicao], emails[posicao])
+    pessoa = cadastro.buscarPorNome(busca)
+    if pessoa is None:
+        print("Não encontrado")
+    else:
+        exibirPessoa(pessoa)
         nome = input("Novo nome: ")
         idade = int(input("Nova idade: "))
         email = input("Novo e-mail: ")
-        if nome!="":
-            nomes[posicao] = nome
-        if idade>0:
-            idades[posicao] = idade
-        if email!="":
-            emails[posicao] = email
+        cadastro.alterar(busca, nome, idade, email)
+        print("Alterado pessoa")
+        exibirPessoa(pessoa)
 
-def listarPessoas(nomes, idades, emails):
+def listarPessoas(cadastro):
     """Lista todos os cadastros do sistema"""
-    if len(nomes)==0:
+    pessoas = cadastro.listar()
+    if len(pessoas)==0:
         print("Nenhum cadastro")
     else:
-        posicao = 0
-        while posicao < len(nomes):
-            exibirPessoa(nomes[posicao], idades[posicao], emails[posicao])
-            posicao = posicao + 1
-        print("Total: " + str(len(nomes)))
+        for pessoa in pessoas:
+            exibirPessoa(pessoa)
+        print("Total: " + str(len(pessoas)))
 
 def analisarIdade(idade):
     """Apresenta a faixa etária a partir de uma idade"""
@@ -124,16 +120,16 @@ def analisarIdadeEEmail(idade, email):
     else:
         print("Menor de idade sem contato")
 
-def analisarPessoa(nomes, idades, emails):
+def analisarPessoa(cadastro):
     """Busca uma pessoa e valida seu cadastro pela sua faixa etária, validade do e-mail e se é possível contactar"""
     busca = input("Nome para analisar: ")
-    posicao = buscarPessoa(busca, nomes)
+    pessoa = cadastro.buscarPorNome(busca)
 
-    if posicao==-1:
+    if pessoa is None:
         print("Pessoa não encontrada")
     else:
-        idade = idades[posicao]
-        email = emails[posicao]
+        idade = pessoa.getIdade()
+        email = pessoa.getEmail()
 
         analisarIdade(idade)
         emailOk = analisarEmail(email)
@@ -144,24 +140,22 @@ def analisarPessoa(nomes, idades, emails):
 
 def main():
     """Executa o loop de menu do programa"""
-    nomes = []
-    idades = []
-    emails = []
+    cadastro = CadastroPessoa()
 
     op = 0
 
     while op != 6:
         op = printMenu()
         if op == 1:
-            cadastrarPessoa(nomes, idades, emails)
+            cadastrarPessoa(cadastro)
         elif op == 2:
-            consultarPessoa(nomes, idades, emails)
+            consultarPessoa(cadastro)
         elif op == 3:
-            alterarPessoa(nomes, idades, emails)
+            alterarPessoa(cadastro)
         elif op == 4:
-            listarPessoas(nomes, idades, emails)
+            listarPessoas(cadastro)
         elif op == 5:
-            analisarPessoa(nomes, idades, emails)
+            analisarPessoa(cadastro)
         elif op == 6:
             print("Saindo...")
 
