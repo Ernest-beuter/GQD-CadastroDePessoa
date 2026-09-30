@@ -162,5 +162,6 @@ def main():
         else:
             print("Opcao invalida")
 
-main()
-print("Fim do programa")
+if __name__ == "__main__":
+    main()
+    print("Fim do programa")
